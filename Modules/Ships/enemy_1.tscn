@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cbotgwicrp4hv"]
+
+[ext_resource type="PackedScene" uid="uid://dw1r6pnvg77id" path="res://Assets/enemy_1.glb" id="1_38k5d"]
+[ext_resource type="Script" path="res://Modules/Ships/enemy_1.gd" id="1_vtjey"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q0jkk"]
+size = Vector3(17, 4.16147, 19.5204)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2d0qp"]
+height = 10.0
+radius = 250.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i54t8"]
+size = Vector3(20, 4.96741, 21.8938)
+
+[node name="Enemy_1" type="CharacterBody3D" groups=["enemy"]]
+axis_lock_linear_y = true
+script = ExtResource("1_vtjey")
+
+[node name="enemy_1" parent="." instance=ExtResource("1_38k5d")]
+
+[node name="enemy_col" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.999796, -0.0201921, 0, 0.0201921, 0.999796, 0, 0, 0, 1, 0.059574, 1.9684, -7.51147)
+shape = SubResource("BoxShape3D_q0jkk")
+
+[node name="DetectRadius" type="Area3D" parent="." groups=["detectRadius"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectRadius"]
+shape = SubResource("CylinderShape3D_2d0qp")
+
+[node name="health_bar" type="Label3D" parent="."]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 2, 11.0338)
+text = "100"
+font_size = 1000
+
+[node name="hitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9837, -7.43019)
+shape = SubResource("BoxShape3D_i54t8")
+
+[connection signal="body_entered" from="DetectRadius" to="." method="_on_detect_radius_body_entered"]
+[connection signal="body_exited" from="DetectRadius" to="." method="_on_detect_radius_body_exited"]
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

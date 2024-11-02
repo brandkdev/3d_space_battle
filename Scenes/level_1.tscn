@@ -1,0 +1,66 @@
+[gd_scene load_steps=9 format=3 uid="uid://bnvamkof8sq7r"]
+
+[ext_resource type="PackedScene" uid="uid://b7h26aii7oa86" path="res://Modules/Ships/player_ship.tscn" id="1_8lqkf"]
+[ext_resource type="PackedScene" uid="uid://cbotgwicrp4hv" path="res://Modules/Ships/enemy_1.tscn" id="3_45tlg"]
+[ext_resource type="PackedScene" uid="uid://nlekausnb0ni" path="res://Modules/Environment/AsteroidVar1.tscn" id="3_yl3cx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tmso2"]
+sky_top_color = Color(0.0196078, 0, 0.101961, 1)
+ground_bottom_color = Color(0.0214719, 2.09008e-05, 0.100283, 1)
+sun_angle_max = 90.0
+sun_curve = 0.504537
+
+[sub_resource type="Sky" id="Sky_qp8va"]
+sky_material = SubResource("ProceduralSkyMaterial_tmso2")
+
+[sub_resource type="Environment" id="Environment_py4va"]
+background_mode = 2
+background_color = Color(0.246187, 0.000369067, 0.677112, 1)
+sky = SubResource("Sky_qp8va")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+reflected_light_source = 2
+glow_bloom = 0.04
+
+[sub_resource type="BoxMesh" id="BoxMesh_n4bjf"]
+size = Vector3(10000, 1, 10000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qltb6"]
+size = Vector3(10000, 1, 10000)
+
+[node name="Level_1" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0142822, 0.303223, -0.81987)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_py4va")
+
+[node name="PlayerShip" parent="." groups=["friendly"] instance=ExtResource("1_8lqkf")]
+
+[node name="UniLowerBound" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="UniLowerBound"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
+visible = false
+mesh = SubResource("BoxMesh_n4bjf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UniLowerBound"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
+shape = SubResource("BoxShape3D_qltb6")
+
+[node name="Enemy_1" parent="." instance=ExtResource("3_45tlg")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 35, 0, -429.915)
+
+[node name="Enemy_2" parent="." instance=ExtResource("3_45tlg")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -269.918, 0, -429.915)
+
+[node name="Enemy_3" parent="." instance=ExtResource("3_45tlg")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 369.884, 0, -447.312)
+
+[node name="AsteroidVar1" parent="." instance=ExtResource("3_yl3cx")]
+transform = Transform3D(0.63253, 0, 0.774536, 0, 1, 0, -0.774536, 0, 0.63253, 110.684, -10.9872, -63.8246)
+
+[node name="AsteroidVar2" parent="." instance=ExtResource("3_yl3cx")]
+transform = Transform3D(0.904038, 0, 0.427453, 0, 1, 0, -0.427453, 0, 0.904038, -248.259, -10.9872, -87.0594)
+
+[node name="AsteroidVar3" parent="." instance=ExtResource("3_yl3cx")]
+transform = Transform3D(0.917234, 0, -0.398349, 0, 1, 0, 0.398349, 0, 0.917234, -89.868, -10.9872, -215.17)

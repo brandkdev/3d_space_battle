@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://nlekausnb0ni"]
+
+[ext_resource type="PackedScene" uid="uid://tw4cs4vbuhap" path="res://Assets/asteroid1.glb" id="1_3m81v"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5du3m"]
+radius = 14.0
+height = 56.0
+
+[node name="AsteroidVar1" type="RigidBody3D"]
+axis_lock_linear_y = true
+mass = 100.0
+gravity_scale = 0.0
+can_sleep = false
+lock_rotation = true
+
+[node name="asteroid1" parent="." instance=ExtResource("1_3m81v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.7761, 0, 1.91978)
+
+[node name="ast_col" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.000942484, 1, 0, -1, 0.000942484, 15, 11, -27)
+shape = SubResource("CapsuleShape3D_5du3m")

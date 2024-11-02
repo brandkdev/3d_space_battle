@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bh263rvfbamkv"]
+
+[ext_resource type="Script" path="res://Modules/Projectiles/projectile_1.gd" id="1_icclj"]
+[ext_resource type="PackedScene" uid="uid://cy7heegmnug6q" path="res://Assets/proj_1.glb" id="1_tg2xo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6isfq"]
+size = Vector3(1.34546, 1.17535, 4.94421)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kvhmx"]
+size = Vector3(1.39172, 1.27954, 5.0127)
+
+[node name="projectile_1" type="Node3D" groups=["plasma"]]
+script = ExtResource("1_icclj")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00427246, 0.0726013, -2.4942)
+shape = SubResource("BoxShape3D_6isfq")
+
+[node name="proj_1" parent="RigidBody3D" instance=ExtResource("1_tg2xo")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="RigidBody3D" groups=["plasma"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00579834, 0.0706787, -2.48604)
+shape = SubResource("BoxShape3D_kvhmx")
+
+[connection signal="area_entered" from="RigidBody3D/Area3D" to="." method="_on_area_3d_area_entered"]
